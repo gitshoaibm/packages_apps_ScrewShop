@@ -1361,5 +1361,9 @@
     <string name="omniswitch_first_time_message">Make sure you have enabled OmniSwitch. You can do this by using \"Settings\" below</string>
     <string name="omniswitch_settings_title">OmniSwitch</string>
 
+    <!-- Data disabled icon -->
+    <string name="data_disabled_icon_title">Show Data disabled icon</string>
+    <string name="data_disabled_icon_summary">Display the cross sign next to signal bar when data is disabled</string>
+    
 </resources>
 
