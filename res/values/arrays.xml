@@ -1280,6 +1280,7 @@
         <item>@string/lock_clock_font_condensed_bold_italic</item>
         <item>@string/lock_clock_font_medium_normal</item>
         <item>@string/lock_clock_font_medium_italic</item>
+        <item>@string/lock_clock_font_batman</item>
     </string-array>
 
     <string-array name="lock_clock_fonts_values" translatable="false">
@@ -1295,6 +1296,7 @@
         <item>9</item>
         <item>10</item>
         <item>11</item>
+        <item>12</item>
     </string-array>
 
 
