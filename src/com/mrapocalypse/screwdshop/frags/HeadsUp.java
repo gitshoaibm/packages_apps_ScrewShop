@@ -119,6 +119,11 @@ public class HeadsUp extends SettingsPreferenceFragment
             return true;
         }
         return false;
+}
+    private void updateHeadsUpTimeOutSummary(int value) {
+        String summary = getResources().getString(R.string.heads_up_time_out_summary,
+                value / 1000);
+        mHeadsUpTimeOut.setSummary(summary);
 
     }
 
