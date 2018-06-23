@@ -1399,5 +1399,12 @@
     <string name="lock_clock_font_batman">Batman</string>
 
 
+    <!-- Lock Clock Fonts Colors-->
+    <string name="lock_clock_font_color_titled">Clock Color option Dynamic</string>
+    <string name="lock_clock_font_color_summaryd">Change the default Color of the lockscreen clock widget</string>
+    <string name="lock_clock_font_color_dialog_titled">Select lock clock font color</string>
+    <string name="lock_clock_font_dy">Clock Color</string>
+    <string name="font_color_cat">Clock Settings</string>
+
 </resources>
 

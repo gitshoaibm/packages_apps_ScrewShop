@@ -38,7 +38,7 @@ import android.widget.ListView;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import com.android.internal.logging.nano.MetricsProto;
 
 /**
@@ -58,6 +58,11 @@ public class LockscreenFrag extends SettingsPreferenceFragment implements
     private static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
     ListPreference mLockClockFonts;
 
+    private static final String LOCK_CLOCK_FONTS_COLOR = "lock_clock_fonts_color";
+    private static final String KEY_LOCK_CLOCK_FONT_DY = "lock_clock_font_dy";
+    ListPreference mLockClockFontsColor;
+    private ColorPickerPreference mFontColor;
+    private PreferenceCategory mFColorCategory;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +71,8 @@ public class LockscreenFrag extends SettingsPreferenceFragment implements
         final ContentResolver resolver = getContentResolver();
         final PreferenceScreen prefScreen = getPreferenceScreen();
         final Resources res = getResources();
+
+        mFColorCategory = (PreferenceCategory) findPreference("font_color_cat");
 
         mLockscreenShortcutsLaunchType = (ListPreference) findPreference(
                 PREF_LOCKSCREEN_SHORTCUTS_LAUNCH_TYPE);
@@ -90,6 +97,14 @@ public class LockscreenFrag extends SettingsPreferenceFragment implements
         mLockscreenDateSelection.setValue(String.valueOf(dateSelection));
         mLockscreenDateSelection.setSummary(mLockscreenDateSelection.getEntry());
         mLockscreenDateSelection.setOnPreferenceChangeListener(this);
+
+        mFontColor = (ColorPickerPreference) findPreference(KEY_LOCK_CLOCK_FONT_DY);
+	int color = Settings.System.getIntForUser(resolver,
+                Settings.System.LOCK_CLOCK_FONT_DY, 0xFFFF0000, UserHandle.USER_CURRENT);
+            mFontColor.setAlphaSliderEnabled(true);
+            mFontColor.setNewPreviewColor(color);
+            mFontColor.setOnPreferenceChangeListener(this);
+
 
     }
 
@@ -134,7 +149,19 @@ public class LockscreenFrag extends SettingsPreferenceFragment implements
             mLockClockFonts.setValue(String.valueOf(newValue));
             mLockClockFonts.setSummary(mLockClockFonts.getEntry());
             return true;
-	}
+        } else if (preference == mLockClockFontsColor) {
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCK_CLOCK_FONTS_COLOR,
+                    Integer.valueOf((String) newValue));
+            mLockClockFontsColor.setValue(String.valueOf(newValue));
+            mLockClockFontsColor.setSummary(mLockClockFontsColor.getEntry());
+            return true;
+	} else if (preference == mFontColor) {
+            int color = ((Integer) newValue).intValue();
+            Settings.System.putIntForUser(getContentResolver(),
+                    Settings.System.LOCK_CLOCK_FONT_DY, color,
+                    UserHandle.USER_CURRENT);
+            return true;
+        }
         return false;
     }
 
